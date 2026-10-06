@@ -1,0 +1,143 @@
+{
+  "model_name": "sign_language_model_wristrel_17class",
+  "feature_type": "wrist_relative",
+  "dataset_source": "dataset/Forproject.csv",
+  "wristrel_dataset": "dataset/Forproject_wristrel.csv",
+  "balanced_dataset": "dataset/Forproject_wristrel_balanced.csv",
+  "algorithm": "RandomForestClassifier",
+  "num_features": 126,
+  "num_classes": 17,
+  "classes": [
+    "BATHROOM",
+    "EMERGENCY",
+    "FOOD",
+    "GOODBYE",
+    "HELLO",
+    "HELP",
+    "NO",
+    "PAIN",
+    "PLEASE",
+    "REST",
+    "SICK",
+    "SLEEP",
+    "SORRY",
+    "STOP",
+    "THANK_YOU",
+    "WATER",
+    "YES"
+  ],
+  "train_samples": 680,
+  "test_samples": 170,
+  "samples_per_class": 50,
+  "accuracy": 0.8470588235294118,
+  "weighted_precision": 0.8576645576645575,
+  "weighted_recall": 0.8470588235294118,
+  "weighted_f1": 0.8461310969890227,
+  "macro_precision": 0.8576645576645577,
+  "macro_recall": 0.8470588235294119,
+  "macro_f1": 0.8461310969890226,
+  "per_class_metrics": {
+    "BATHROOM": {
+      "precision": 0.8571428571428571,
+      "recall": 0.6,
+      "f1-score": 0.7058823529411765,
+      "support": 10.0
+    },
+    "EMERGENCY": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8,
+      "f1-score": 0.7619047619047619,
+      "support": 10.0
+    },
+    "FOOD": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1-score": 0.9,
+      "support": 10.0
+    },
+    "GOODBYE": {
+      "precision": 1.0,
+      "recall": 0.7,
+      "f1-score": 0.8235294117647058,
+      "support": 10.0
+    },
+    "HELLO": {
+      "precision": 0.75,
+      "recall": 0.9,
+      "f1-score": 0.8181818181818182,
+      "support": 10.0
+    },
+    "HELP": {
+      "precision": 0.9,
+      "recall": 0.9,
+      "f1-score": 0.9,
+      "support": 10.0
+    },
+    "NO": {
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1-score": 0.9473684210526315,
+      "support": 10.0
+    },
+    "PAIN": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 10.0
+    },
+    "PLEASE": {
+      "precision": 0.75,
+      "recall": 0.6,
+      "f1-score": 0.6666666666666666,
+      "support": 10.0
+    },
+    "REST": {
+      "precision": 0.6923076923076923,
+      "recall": 0.9,
+      "f1-score": 0.782608695652174,
+      "support": 10.0
+    },
+    "SICK": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 10.0
+    },
+    "SLEEP": {
+      "precision": 0.8181818181818182,
+      "recall": 0.9,
+      "f1-score": 0.8571428571428571,
+      "support": 10.0
+    },
+    "SORRY": {
+      "precision": 0.8,
+      "recall": 0.8,
+      "f1-score": 0.8,
+      "support": 10.0
+    },
+    "STOP": {
+      "precision": 1.0,
+      "recall": 0.9,
+      "f1-score": 0.9473684210526315,
+      "support": 10.0
+    },
+    "THANK_YOU": {
+      "precision": 0.7272727272727273,
+      "recall": 0.8,
+      "f1-score": 0.7619047619047619,
+      "support": 10.0
+    },
+    "WATER": {
+      "precision": 0.7692307692307693,
+      "recall": 1.0,
+      "f1-score": 0.8695652173913043,
+      "support": 10.0
+    },
+    "YES": {
+      "precision": 0.8888888888888888,
+      "recall": 0.8,
+      "f1-score": 0.8421052631578947,
+      "support": 10.0
+    }
+  }
+}

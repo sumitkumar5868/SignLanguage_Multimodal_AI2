@@ -1,0 +1,44 @@
+{
+  "model_type": "RandomForestClassifier",
+  "n_classes": 5,
+  "classes": [
+    "HELLO",
+    "I_EAT",
+    "I_HATE_YOU",
+    "I_LOVE_YOU",
+    "THANK_YOU"
+  ],
+  "n_features": 63,
+  "total_dataset_samples": 255,
+  "evaluation_samples": 51,
+  "train_samples": 204,
+  "split_parameters": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratified": true
+  },
+  "metrics": {
+    "accuracy": 0.9607843137254902,
+    "macro_precision": 0.9666666666666668,
+    "macro_recall": 0.9636363636363636,
+    "macro_f1": 0.9618181818181817,
+    "weighted_precision": 0.9673202614379085,
+    "weighted_recall": 0.9607843137254902,
+    "weighted_f1": 0.9606060606060606
+  },
+  "per_class_f1": {
+    "HELLO": 90.0,
+    "I_EAT": 90.9090909090909,
+    "I_HATE_YOU": 100.0,
+    "I_LOVE_YOU": 100.0,
+    "THANK_YOU": 100.0
+  },
+  "best_performing_signs": [
+    "I_HATE_YOU",
+    "I_LOVE_YOU",
+    "THANK_YOU"
+  ],
+  "weakest_performing_signs": [
+    "HELLO"
+  ]
+}

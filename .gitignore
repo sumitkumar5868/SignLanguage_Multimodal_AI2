@@ -1,0 +1,23 @@
+# Environment & Secrets
+.env
+*.env
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# OS Specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

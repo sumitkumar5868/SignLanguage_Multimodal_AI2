@@ -1,0 +1,17 @@
+opencv-python
+numpy
+mediapipe
+pandas
+scikit-learn
+matplotlib
+joblib
+Pillow
+gTTS
+pygame
+Flask
+Flask-CORS
+edge-tts
+python-dotenv
+
+
+

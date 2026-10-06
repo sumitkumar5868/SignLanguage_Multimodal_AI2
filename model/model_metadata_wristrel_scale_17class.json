@@ -1,0 +1,141 @@
+{
+  "model_name": "sign_language_model_wristrel_scale_17class",
+  "feature_type": "wrist_relative_scale_normalized",
+  "scale_reference": "landmark_9_Middle_MCP_wristrel_L2_norm",
+  "scale_formula": "normalized[i] = wristrel[i] / ||wristrel_lm9||",
+  "dataset_source": "/Users/rohitroy/Downloads/SignLanguage_Multimodal_AI/dataset/my_fresh_dataset.csv",
+  "algorithm": "RandomForestClassifier",
+  "n_estimators": 400,
+  "num_features": 126,
+  "num_classes": 17,
+  "classes": [
+    "BATHROOM",
+    "EMERGENCY",
+    "FOOD",
+    "GOODBYE",
+    "HELLO",
+    "HELP",
+    "NO",
+    "PAIN",
+    "PLEASE",
+    "REST",
+    "SICK",
+    "SLEEP",
+    "SORRY",
+    "STOP",
+    "THANK_YOU",
+    "WATER",
+    "YES"
+  ],
+  "train_samples": 80640,
+  "test_samples": 2720,
+  "accuracy": 1.0,
+  "weighted_f1": 1.0,
+  "macro_f1": 1.0,
+  "balance_target": 800,
+  "per_class_metrics": {
+    "BATHROOM": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "EMERGENCY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "FOOD": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "GOODBYE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "HELLO": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "HELP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "NO": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "PAIN": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "PLEASE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "REST": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "SICK": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "SLEEP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "SORRY": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "STOP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "THANK_YOU": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "WATER": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    },
+    "YES": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 160.0
+    }
+  },
+  "live_inference_uses_identical_transform": true
+}

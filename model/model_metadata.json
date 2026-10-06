@@ -1,0 +1,17 @@
+{
+  "model": "RandomForestClassifier",
+  "features": 63,
+  "classes": [
+    "HELLO",
+    "I_LOVE_YOU",
+    "I_HATE_YOU",
+    "I_EAT",
+    "THANK_YOU"
+  ],
+  "training_samples": 200,
+  "testing_samples": 50,
+  "dataset_samples": 250,
+  "random_state": 42,
+  "n_estimators": 200,
+  "accuracy": 0.94
+}

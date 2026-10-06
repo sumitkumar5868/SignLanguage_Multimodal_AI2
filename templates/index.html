@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Multimodal AI — Real-Time Multilingual Recognition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Noto+Sans+Telugu:wght@400;600;700&family=Noto+Sans+Oriya:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Multilingual Multimodal AI Assistant</span>
+                </div>
+                <h1 class="header-title">🤟 Sign Language Multimodal AI</h1>
+                <p class="header-subtitle">Real-Time Sign Recognition with Multilingual Text & Voice Output</p>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill" id="model-status-pill">
+                    <span class="stat-icon">🧠</span>
+                    <span id="model-status-text">17-Class Model (126 Features | 17 Classes)</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-icon">🌐</span>
+                    <span>6 Languages</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT (2-COLUMN GRID) -->
+        <main class="main-grid">
+            <!-- LEFT COLUMN: CAMERA PREVIEW -->
+            <section class="card camera-card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <span class="icon">📷</span>
+                        <h2>Live Camera Feed</h2>
+                    </div>
+                    <div class="status-badge" id="camera-status-badge">
+                        <span class="status-indicator"></span>
+                        <span id="camera-status-text">Camera: Connecting...</span>
+                    </div>
+                </div>
+
+                <!-- Video Viewport Container -->
+                <div class="video-container" id="video-container">
+                    <video id="webcam-video" autoplay playsinline muted></video>
+                    <canvas id="overlay-canvas"></canvas>
+                    <canvas id="hidden-capture-canvas" style="display: none;"></canvas>
+
+                    <!-- Camera Permission / Error Overlay -->
+                    <div class="camera-overlay" id="camera-overlay">
+                        <div class="overlay-content">
+                            <div class="overlay-icon" id="overlay-icon">📷</div>
+                            <h3 id="overlay-title">Camera Permission</h3>
+                            <p id="overlay-desc">Please allow camera access in your browser to start real-time sign recognition.</p>
+                            <button class="btn btn-primary" id="btn-request-camera" style="margin-top: 14px;">
+                                Allow Camera Access
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Hand Detection Diagnostic Banner -->
+                <div class="diagnostic-banner" id="diagnostic-banner" style="display: flex; flex-wrap: wrap; gap: 8px 14px; padding: 10px 16px; background: rgba(15, 23, 42, 0.95); border-top: 1px solid rgba(255,255,255,0.08); font-size: 12px; font-family: 'JetBrains Mono', monospace; justify-content: space-between; align-items: center;">
+                    <div id="diag-hand-count" style="font-weight: 700; color: #94a3b8;">✋ HANDS: 0</div>
+                    <div id="diag-status" style="color: #64748b;">STATUS: SEARCHING</div>
+                    <div id="diag-features" style="color: #38bdf8;">FEATURES: 126 (0 active)</div>
+                    <div id="diag-latency" style="color: #4ade80;">MEDIA-PIPE: -- ms</div>
+                </div>
+
+                <!-- Camera Info & Status Bar -->
+                <div class="camera-footer">
+                    <div class="badge badge-hands" id="badge-hands">
+                        <span class="hand-icon">✋</span>
+                        <span id="hands-count-text">Hands detected: 0</span>
+                    </div>
+                    <div class="badge badge-fps" id="badge-latency">
+                        <span id="latency-text">Latency: -- ms</span>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="btn btn-sm btn-secondary" id="btn-toggle-camera">
+                            ⏹ Stop Camera
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: RECOGNITION RESULT & LANGUAGE SETTINGS -->
+            <section class="card result-card">
+                <div class="card-header">
+                    <div class="card-title-group">
+                        <span class="icon">✨</span>
+                        <h2>Recognition Result</h2>
+                    </div>
+                    <div class="status-badge active" id="rec-status-badge">
+                        <span class="status-indicator"></span>
+                        <span id="rec-status-text">Ready</span>
+                    </div>
+                </div>
+
+                <div class="result-body">
+                    <!-- DETECTED SIGN SECTION -->
+                    <div class="result-section sign-section">
+                        <div class="sign-header-row">
+                            <span class="section-label">DETECTED SIGN</span>
+                            <span class="stability-pill status-waiting" id="stability-pill">
+                                <span class="stability-dot" id="stability-dot"></span>
+                                <span id="stability-text">Waiting</span>
+                            </span>
+                        </div>
+                        <div class="sign-badge-container">
+                            <div class="sign-badge" id="sign-badge">[WAITING]</div>
+                        </div>
+                    </div>
+
+                    <!-- DYNAMIC TRANSLATED TEXT (Follows Text Language Selection) -->
+                    <div class="result-section translated-section">
+                        <div class="section-label-group">
+                            <span class="flag" id="selected-text-lang-flag">🇬🇧</span>
+                            <span class="section-label" id="selected-text-lang-label">English Translation</span>
+                        </div>
+                        <div class="result-text dynamic-trans-text" id="translated-text">Show your hand to the camera</div>
+                    </div>
+
+                    <!-- CONFIDENCE GAUGE -->
+                    <div class="result-section confidence-section">
+                        <div class="confidence-header">
+                            <div class="section-label-group">
+                                <span class="icon">📊</span>
+                                <span class="section-label">Confidence Score</span>
+                            </div>
+                            <span class="confidence-value" id="confidence-value">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="confidence-fill" style="width: 0%;"></div>
+                        </div>
+                        <div class="confidence-state-badge" id="confidence-state-badge">
+                            <span id="confidence-state-icon">ℹ️</span>
+                            <span id="confidence-state-text">Waiting for sign</span>
+                        </div>
+                    </div>
+
+                    <!-- LANGUAGE SETTINGS CONTROLS (Dropdowns) -->
+                    <div class="result-section language-settings-section">
+                        <div class="section-label-group">
+                            <span class="icon">⚙️</span>
+                            <span class="section-label">Language Settings</span>
+                        </div>
+                        <div class="language-selectors-grid">
+                            <!-- Text Language Selector -->
+                            <div class="lang-select-group">
+                                <label for="select-text-lang">📝 Text Language</label>
+                                <select id="select-text-lang" class="lang-dropdown">
+                                    <option value="english" selected>🇬🇧 English</option>
+                                    <option value="hindi">🇮🇳 Hindi (हिन्दी)</option>
+                                    <option value="bhojpuri">🇮🇳 Bhojpuri (भोजपुरी)</option>
+                                    <option value="odia">🇮🇳 Odia (ଓଡ଼ିଆ)</option>
+                                    <option value="telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                    <option value="bengali">🇮🇳 Bengali (বাংলা)</option>
+                                </select>
+                            </div>
+
+                            <!-- Audio Language Selector -->
+                            <div class="lang-select-group">
+                                <label for="select-audio-lang">🔊 Audio Language</label>
+                                <select id="select-audio-lang" class="lang-dropdown">
+                                    <option value="hindi" selected>🇮🇳 Hindi (हिन्दी)</option>
+                                    <option value="english">🇬🇧 English</option>
+                                    <option value="bengali">🇮🇳 Bengali (বাংলা)</option>
+                                    <option value="telugu">🇮🇳 Telugu (తెలుగు)</option>
+                                    <option value="odia">🇮🇳 Odia (ଓଡ଼ିଆ)*</option>
+                                    <option value="bhojpuri">🇮🇳 Bhojpuri (भोजपुरी)*</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACCESSIBILITY GUIDANCE BANNER -->
+                    <div class="guidance-banner" id="guidance-banner">
+                        <span class="guidance-icon" id="guidance-icon">💡</span>
+                        <span class="guidance-text" id="guidance-text">Position your hand clearly inside the camera frame.</span>
+                    </div>
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="action-buttons">
+                        <button class="btn btn-speak" id="btn-speak" title="Speak the translation in selected audio language">
+                            <span class="btn-icon">🔊</span>
+                            <span id="btn-speak-label">Speak (Hindi)</span>
+                        </button>
+                        <button class="btn btn-clear" id="btn-clear" title="Clear current recognition">
+                            <span class="btn-icon">🗑</span>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- RECOGNITION HISTORY CARD -->
+        <section class="card history-card">
+            <div class="card-header">
+                <div class="card-title-group">
+                    <span class="icon">📋</span>
+                    <h2>Recognition History</h2>
+                    <span class="history-count-badge" id="history-count-badge">0</span>
+                </div>
+                <div class="history-header-actions">
+                    <button class="btn btn-sm btn-clear-history" id="btn-clear-history" title="Clear all history entries">
+                        <span class="btn-icon">🗑</span>
+                        <span>Clear History</span>
+                    </button>
+                </div>
+            </div>
+            <div class="history-body">
+                <div class="history-table-container" id="history-table-container">
+                    <table class="history-table" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Detected Sign</th>
+                                <th>Text Language</th>
+                                <th>Translated Text</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body">
+                            <tr class="history-empty-row" id="history-empty-row">
+                                <td colspan="5">No recognition history yet. Show a sign to the camera to record.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="app-footer">
+            <div class="footer-left">
+                <span>Model Signs: <strong id="supported-signs-list">HELLO, I_LOVE_YOU, I_HATE_YOU, I_EAT, THANK_YOU</strong></span>
+            </div>
+            <div class="footer-right">
+                <span>Languages: English • हिन्दी • भोजपुरी • ଓଡ଼ିଆ • తెలుగు • বাংলা</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Hidden Audio Player for Multilingual Speech -->
+    <audio id="tts-audio" preload="none"></audio>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
